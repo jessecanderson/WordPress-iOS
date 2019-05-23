@@ -28,11 +28,22 @@ class LoginCheckMagicLinkScreen: BaseScreen {
         return LoginPasswordScreen()
     }
 
-    func checkMagicLink() -> LoginCheckMagicLinkScreen {
-        mailButton.tap()
-        mailAlert.buttons[ElementStringIDs.okButton].tap()
+    func openMagicLink() -> LoginEpilogueScreen {
+        let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+        safari.launch()
 
-        return self
+        // Select the URL bar when Safari opens
+        let urlBar = safari.otherElements["URL"]
+        waitFor(element: urlBar, predicate: "exists == true")
+        urlBar.tap()
+
+        // Redirect to the deep link
+        safari.textFields["URL"].typeText("http://localhost:8282/magic-link?scheme=wpdebug\n")
+
+        // Accept the prompt to open the deep link
+        safari.buttons.matching(identifier: "Open").firstMatch.tap()
+
+        return LoginEpilogueScreen()
     }
 
     static func isLoaded() -> Bool {
