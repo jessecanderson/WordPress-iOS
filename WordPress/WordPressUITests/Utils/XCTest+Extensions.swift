@@ -45,7 +45,7 @@ extension XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["-wpcom-api-base-url", "http://localhost:8282/", "-no-animations"]
+        app.launchArguments = ["-wpcom-api-base-url", WireMock.URL().absoluteString, "-no-animations"]
         app.activate()
 
         // Media permissions alert handler

@@ -6,5 +6,5 @@ struct WPUITestCredentials {
     static let testWPcomSiteAddress: String =  "e2eflowtestingmobile.wordpress.com"
     static let selfHostedUsername: String = "e2eflowtestingmobile"
     static let selfHostedPassword: String = "mocked_password"
-    static let selfHostedSiteAddress: String = "http://localhost:8282"
+    static let selfHostedSiteAddress: String = "\(WireMock.URL().absoluteString)"
 }

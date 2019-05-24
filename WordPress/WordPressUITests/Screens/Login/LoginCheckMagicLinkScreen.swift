@@ -37,8 +37,12 @@ class LoginCheckMagicLinkScreen: BaseScreen {
         waitFor(element: urlBar, predicate: "exists == true")
         urlBar.tap()
 
-        // Redirect to the deep link
-        safari.textFields["URL"].typeText("http://localhost:8282/magic-link?scheme=wpdebug\n")
+        // Follow the magic link
+        var magicLinkComponents = URLComponents(url: WireMock.URL(), resolvingAgainstBaseURL: false)!
+        magicLinkComponents.path = "/magic-link"
+        magicLinkComponents.queryItems = [URLQueryItem(name: "scheme", value: "wpdebug")]
+
+        safari.textFields["URL"].typeText("\(magicLinkComponents.url!.absoluteString)\n")
 
         // Accept the prompt to open the deep link
         safari.buttons.matching(identifier: "Open").firstMatch.tap()
